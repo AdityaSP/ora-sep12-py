@@ -1,0 +1,545 @@
+Python 3.7.4 (tags/v3.7.4:e09359112e, Jul  8 2019, 20:34:20) [MSC v.1916 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license()" for more information.
+>>> 
+
+>>> 
+>>> a = 10
+>>> def sayhi():
+	return "Hi"
+
+>>> id(a)
+140713514856992
+>>> id(sayhi)
+1242309289304
+>>> type(a)
+<class 'int'>
+>>> type(sayhi)
+<class 'function'>
+>>> b = a
+>>> id(b), id(a)
+(140713514856992, 140713514856992)
+>>> greet = sayhi
+>>> id(greet), id(sayhi)
+(1242309289304, 1242309289304)
+>>> type(greet)
+<class 'function'>
+>>> greet()
+'Hi'
+>>> 
+>>> def execother(x):
+	print(type(x))
+
+	
+>>> execother(a)
+<class 'int'>
+>>> execother(sayhi)
+<class 'function'>
+>>> 
+>>> 
+>>> def execother(x):
+	return x()
+
+>>> 
+>>> 
+>>> execother(sayhi)
+'Hi'
+>>> 
+>>> 
+>>> 
+>>> def calc(x,y,f):
+	return f(x,y)
+
+>>> def add(x,y):
+	return x + y
+
+>>> def sub(x,y):
+	return x- y
+
+>>> 
+>>> 
+>>> calc(3,4,add)
+7
+>>> calc(3,4,sub)
+-1
+>>> # add ---> first order function
+>>> # (half the definition) : if a function accepts another function --> Higher order function
+>>> 
+>>> 
+>>> 
+>>> 
+>>> li = ['New Jersey', 'new York', 'London', 'sydney']
+>>> sorted(li)
+['London', 'New Jersey', 'new York', 'sydney']
+>>> li = ['New Jersey', 'new York', 'London', 'sydney', 'agra']
+>>> sorted(li)
+['London', 'New Jersey', 'agra', 'new York', 'sydney']
+>>> def toupper(x):
+	return x.upper()
+
+>>> toupper('agra')
+'AGRA'
+>>> sorted(li, key = toupper)
+['agra', 'London', 'New Jersey', 'new York', 'sydney']
+>>> 
+>>> 
+>>> 
+>>> li = ['aaaaa','bb','gggg','z']
+>>> sorted(li)
+['aaaaa', 'bb', 'gggg', 'z']
+>>> def lenght(x):
+	return len(x)
+
+>>> sorted(li, key=lenght)
+['z', 'bb', 'gggg', 'aaaaa']
+>>> 
+>>> 
+>>> sorted(li, key=len)
+['z', 'bb', 'gggg', 'aaaaa']
+>>> 
+
+>>> 
+>>> li = [1,2,3,4,5]
+>>> sqs = []
+>>> for i in li:
+	sqs.append(i * i)
+
+	
+>>> sqs
+[1, 4, 9, 16, 25]
+>>> 
+>>> 
+>>> def sq(x):
+	return x * x
+
+>>> m = map(sq, li)
+>>> 
+>>> 
+>>> type(m)
+<class 'map'>
+>>> m
+<map object at 0x000001213F61FF48>
+>>> for i in m:
+	print(i)
+
+	
+1
+4
+9
+16
+25
+>>> m = map(sq, li)
+>>> list(m)
+[1, 4, 9, 16, 25]
+>>> m = map(sq, li)
+>>> tuple(m)
+(1, 4, 9, 16, 25)
+>>> 
+>>> 
+>>> li
+[1, 2, 3, 4, 5]
+>>> list(map(sq, li))
+[1, 4, 9, 16, 25]
+>>> list(map(sq, li))
+[1, 4, 9, 16, 25]
+>>> m = map(sq, li)
+>>> list(m)
+[1, 4, 9, 16, 25]
+>>> list(m)
+[]
+>>> m = map(sq, li)
+>>> 
+>>> 
+>>> m
+<map object at 0x000001213F61FF48>
+>>> li
+[1, 2, 3, 4, 5]
+>>> sum(li)
+15
+>>> sum(m)
+55
+>>> 
+>>> 
+>>> 10
+10
+>>> 'Hello'
+'Hello'
+>>> a= 10
+>>> 
+>>> 
+>>> def add(x,y):
+	return x + y
+
+>>> lambda x,y: x+y
+<function <lambda> at 0x000001213F6CA678>
+>>> d = lambda x,y: x+y
+>>> type(d)
+<class 'function'>
+>>> d(4,5)
+9
+>>> m = 5
+>>> n = 6
+>>> add(m,n)
+11
+>>> add(5,6)
+11
+>>> def calc(x,y,f):
+	return f(x,y)
+
+>>> calc(4,5, lambda x,y: x*x + y*y)
+41
+>>> calc(4,5, lambda x, y: x*y)
+20
+>>> li = [5,10, 21,42]
+>>> list(map(lambda x: x * 0.6, li))
+[3.0, 6.0, 12.6, 25.2]
+>>> li = ['New Jersey', 'new York', 'London', 'sydney', 'agra']
+>>> sorted(li, key= lambda x: x.upper())
+['agra', 'London', 'New Jersey', 'new York', 'sydney']
+>>> 
+>>> 
+>>> ages = [12,34,78,12,4,67,90]
+>>> list(filter(lambda
+	    : 10<x<70, ages))
+Traceback (most recent call last):
+  File "<pyshell#140>", line 2, in <module>
+    : 10<x<70, ages))
+TypeError: <lambda>() takes 0 positional arguments but 1 was given
+>>> list(filter(lambda x: 10<x<70, ages))
+[12, 34, 12, 67]
+>>> ages
+[12, 34, 78, 12, 4, 67, 90]
+>>> list(map(lambda x : x * 12 , filter(lambda x: 10<x<70, ages)))
+[144, 408, 144, 804]
+>>> list(map(lambda x : x * 12 , filter(lambda x: 10<x<70, ages)))
+[144, 408, 144, 804]
+>>> 
+>>> 
+>>> 
+>>> 
+>>> 
+>>> 
+>>> li = [1,2,3,4,5]
+>>> sqs = []
+>>> for i in li:
+	sqs.append(i * i)
+
+	
+>>> # list comprehension
+>>> # [<expression> <for statement>]
+>>> 
+>>> sqs
+[1, 4, 9, 16, 25]
+>>> [ i * i  for i in li]
+[1, 4, 9, 16, 25]
+>>> [ sq(i)  for i in li]
+[1, 4, 9, 16, 25]
+>>> list(map(sq, li))
+[1, 4, 9, 16, 25]
+>>> li = [5,10,21,42]
+>>> [ i*0.6 for i in li]
+[3.0, 6.0, 12.6, 25.2]
+>>> list(map(lambda x : x * 0.6, li))
+[3.0, 6.0, 12.6, 25.2]
+>>> 
+>>> 
+>>> # [<expression> <for statement> <if gate>]
+>>> 
+>>> li = [1,2,3,4,5]
+>>> [  i * i  for i in li  if i%2 == 0    ]
+[4, 16]
+>>> ages = [12,34,78,12,4,67,90]
+>>> list(map(lambda x : x * 12 , filter(lambda x: 10<x<70, ages)))
+[144, 408, 144, 804]
+>>> [ age * 12  for age in ages if 10 < age < 70 ]
+[144, 408, 144, 804]
+>>> 
+>>> 
+>>> li = ['what are you' , 'how are you', 'who are you']
+>>> list(map(lambda x: x.split(), li))
+[['what', 'are', 'you'], ['how', 'are', 'you'], ['who', 'are', 'you']]
+>>> list(map(lambda x: len(x.split()), li))
+[3, 3, 3]
+>>> sum(map(lambda x: len(x.split()), li))
+9
+>>> sum([ len(line.split()) for line in li])
+9
+>>> li = ['what are you' , 'how are you', 'who are you']
+>>> 
+>>> [word for line in li for word in line.split()]
+['what', 'are', 'you', 'how', 'are', 'you', 'who', 'are', 'you']
+>>> 
+>>> 
+>>> nli = []
+>>> for line in li:
+	for word in line.split():
+		nli.append(word)
+
+		
+>>> nli
+['what', 'are', 'you', 'how', 'are', 'you', 'who', 'are', 'you']
+>>> 
+
+>>> 
+>>> line = 'MicrosoftEdge.exe            31092 Console                    1     72,476 K\r'
+>>> 
+>>> line.split()
+['MicrosoftEdge.exe', '31092', 'Console', '1', '72,476', 'K']
+>>> line.split(' ')
+['MicrosoftEdge.exe', '', '', '', '', '', '', '', '', '', '', '', '31092', 'Console', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '1', '', '', '', '', '72,476', 'K\r']
+>>> 
+>>> 
+>>> 
+>>> 
+>>> def greet(name):
+	def sayhi():
+		return "Hi " + name
+	return sayhi
+
+>>> x = greet('Aditya')
+>>> type(x)
+<class 'function'>
+>>> x()
+'Hi Aditya'
+>>> y = greet('Mark')
+>>> y()
+'Hi Mark'
+>>> 
+>>> 
+>>> 
+>>> def bill(item1 , item2, tax):
+	total = item1 + item2
+	grandtotal = total + total * tax
+	return grandtotal
+
+>>> bill (100,200,0.05)
+315.0
+>>> def bill(item1, item2):
+	total = item1 + item2
+	def withtax(tax):
+		grandtotal = total + total*tax
+		return grandtotal
+	return withtax
+
+>>> b1 = bill(100,200)
+>>> type(b1)
+<class 'function'>
+>>> b1(0.05)
+315.0
+>>> b1(0.15)
+345.0
+>>> b1(0.2)
+360.0
+>>> bill(100,200)(0.05)
+315.0
+>>> 
+>>> 
+>>> def greet(lang):
+	def spanish():
+		return "hola"
+	def english():
+		return "Hello"
+	if lang == 'ES':
+		return spanish
+	elif lang == 'EN':
+		return english
+
+	
+>>> x = greet('EN')
+>>> x()
+'Hello'
+>>> x = greet('ES')
+>>> x()
+'hola'
+>>> 
+>>> 
+>>> def sayhi():
+	print("Hi")
+
+	
+>>> sayhi()
+Hi
+>>> def deco(f):
+	def wrapper():
+		print("*" * 30)
+		f()
+		print("*" * 30)
+	return wrapper
+
+>>> x = sayhi()
+Hi
+>>> x = deco(sayhi)
+>>> x()
+******************************
+Hi
+******************************
+>>> 
+>>> 
+>>> 
+>>> 
+>>> def deco(f):
+	def wrapper():
+		print("*" * 30)
+		f()
+		print("*" * 30)
+	return wrapper
+
+>>> @deco
+def sayhi():
+	print("Hi")
+
+	
+>>> 
+>>> sayhi()
+******************************
+Hi
+******************************
+>>> 
+>>> 
+>>> import time
+>>> import random
+>>> 
+>>> def heavyduty():
+	time.sleep(random.randint(1,5))
+
+	
+>>> heavyduty()
+>>> time.time()
+1568143300.8059723
+>>> time.time()
+1568143316.528466
+>>> def timer(f):
+	def wrapper():
+		s = time.time()
+		f()
+		e = time.time()
+		print("Took", e-s , "seconds")
+	return wrapper
+
+>>> @timer
+def heavyduty():
+	time.sleep(random.randint(1,5))
+
+	
+>>> heavyduty()
+Took 2.0008156299591064 seconds
+>>> heavyduty()
+Took 3.000183343887329 seconds
+>>> heavyduty()
+Took 1.0004034042358398 seconds
+>>> heavyduty()
+Took 5.0007164478302 seconds
+>>> @deco
+@timer
+def heavyduty():
+	time.sleep(random.randint(1,5))
+
+	
+>>> heavyduty()
+******************************
+Took 4.000034809112549 seconds
+******************************
+>>> 
+def timer(f):
+	def wrapper():
+		s = time.time()
+		f()
+		e = time.time()
+		print("Took", e-s , "seconds")
+	return wrapper
+
+>>> @timer
+def heavyduty():
+	time.sleep(random.randint(1,5))
+
+	
+>>> 
+>>> 
+>>> 
+>>> 
+>>> 
+>>> range()
+Traceback (most recent call last):
+  File "<pyshell#313>", line 1, in <module>
+    range()
+TypeError: range expected 1 arguments, got 0
+>>> range(10)
+range(0, 10)
+>>> list(range(10))
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> 
+>>> 
+>>> # { <key expr>:<value expr> <for statement> <if gate>}
+>>> 
+>>> { i:i**3  for i in range(10)}
+{0: 0, 1: 1, 2: 8, 3: 27, 4: 64, 5: 125, 6: 216, 7: 343, 8: 512, 9: 729}
+>>> d = { i:i**3  for i in range(10)}
+>>> d[8]
+512
+>>> { i:i**3  for i in range(10) if i%2 == 0}
+{0: 0, 2: 8, 4: 64, 6: 216, 8: 512}
+>>> 
+>>> 
+>>> s = 'A quick brown fox jumps over a lazy dog'
+>>> s = 'A quick brown fox jumps over the lazy dog'
+>>> s = 'a quick brown fox jumps over the lazy dog'
+>>> d = { c:s.count(c) for c in s }
+>>> len(d)
+27
+>>> d
+{'a': 2, ' ': 8, 'q': 1, 'u': 2, 'i': 1, 'c': 1, 'k': 1, 'b': 1, 'r': 2, 'o': 4, 'w': 1, 'n': 1, 'f': 1, 'x': 1, 'j': 1, 'm': 1, 'p': 1, 's': 1, 'v': 1, 'e': 2, 't': 1, 'h': 1, 'l': 1, 'z': 1, 'y': 1, 'd': 1, 'g': 1}
+>>> d = { c:s.count(c) for c in s if s.count(c) > 1}
+>>> d
+{'a': 2, ' ': 8, 'u': 2, 'r': 2, 'o': 4, 'e': 2}
+>>> 
+>>> 
+>>> def adder(*args):
+	print(type(args))
+	print(args)
+
+	
+>>> adder(1,23,5,34,56)
+<class 'tuple'>
+(1, 23, 5, 34, 56)
+>>> adder(1,23,5)
+<class 'tuple'>
+(1, 23, 5)
+>>> def adder(*args):
+	return sum(args)
+
+>>> adder(1,23,5,34,56)
+119
+>>> adder(1,23,5)
+29
+>>> def convert(**kwargs):
+	print(kwargs)
+	print(type(kwargs))
+
+	
+>>> covert(mi=3)
+Traceback (most recent call last):
+  File "<pyshell#351>", line 1, in <module>
+    covert(mi=3)
+NameError: name 'covert' is not defined
+>>> convert(mi=3)
+{'mi': 3}
+<class 'dict'>
+>>> def convert(**kwargs):
+	if 'mi' in kwargs:
+		return kwargs['mi']*1.6
+	elif 'cms' in kwargs:
+		return kwargs['cms']/2.54
+	else:
+		return "Unsupported"
+
+	
+>>> convert(mi=5)
+8.0
+>>> convert(cms=5)
+1.968503937007874
+>>> convert(lbs=5)
+'Unsupported'
+>>> map(lambda x, y : x + y, range(10), range(10))
+<map object at 0x000001213F6AD648>
+>>> list(map(lambda x, y : x + y, range(10), range(10)))
+[0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
+>>> 

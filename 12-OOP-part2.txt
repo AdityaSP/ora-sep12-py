@@ -1,0 +1,353 @@
+Python 3.7.4 (tags/v3.7.4:e09359112e, Jul  8 2019, 20:34:20) [MSC v.1916 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license()" for more information.
+>>> 
+
+>>> 
+>>> class A():
+	pass
+
+>>> dir(A)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__']
+>>> dir(object)
+['__class__', '__delattr__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__']
+>>> class A(object):
+	pass
+
+>>> dir(A)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__']
+>>> 
+>>> 
+>>> class Student():
+	def __init__(self, n, i):
+		self.n
+		self.i
+
+		
+>>> st1 = Student('John Doe', 1)
+Traceback (most recent call last):
+  File "<pyshell#17>", line 1, in <module>
+    st1 = Student('John Doe', 1)
+  File "<pyshell#16>", line 3, in __init__
+    self.n
+AttributeError: 'Student' object has no attribute 'n'
+>>> class Student():
+	def __init__(self, n, i):
+		self.n = n
+		self.i = i
+
+		
+>>> st1 = Student('John Doe', 1)
+>>> st2 = Student('John Doe', 1)
+>>> a = 1001
+>>> b = 1001
+>>> st1 == st2
+False
+>>> a == b
+True
+>>> id(st1), id(st2)
+(2953659555720, 2953659485896)
+>>> st3 = st1
+>>> id(st3)
+2953659555720
+>>> st1 == st3
+True
+>>> id(a), id(b)
+(2953658928400, 2953658928624)
+>>> 
+>>> dir(Student)
+['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__']
+>>> st1 == st2
+False
+>>> Student.__eq__(st1, st2)
+NotImplemented
+>>> class Student():
+	def __init__(self, n, i):
+		self.n = n
+		self.i = i
+	def __eq__(self, other):
+		return self.n == other.n and self.i == other.i
+
+	
+>>> st1 = Student('John Doe', 1)
+>>> st2 = Student('John Doe', 1)
+>>> st1 == st2
+True
+>>> Student.__eq__(st1, st2)
+True
+>>> li = [Student('A', 1), Student('B',2)]
+>>> li
+[<__main__.Student object at 0x000002AFB3BE2B08>, <__main__.Student object at 0x000002AFB3D56B88>]
+>>> li.remove(Student('A',1))
+>>> li
+[<__main__.Student object at 0x000002AFB3D56B88>]
+>>> dir(int)
+['__abs__', '__add__', '__and__', '__bool__', '__ceil__', '__class__', '__delattr__', '__dir__', '__divmod__', '__doc__', '__eq__', '__float__', '__floor__', '__floordiv__', '__format__', '__ge__', '__getattribute__', '__getnewargs__', '__gt__', '__hash__', '__index__', '__init__', '__init_subclass__', '__int__', '__invert__', '__le__', '__lshift__', '__lt__', '__mod__', '__mul__', '__ne__', '__neg__', '__new__', '__or__', '__pos__', '__pow__', '__radd__', '__rand__', '__rdivmod__', '__reduce__', '__reduce_ex__', '__repr__', '__rfloordiv__', '__rlshift__', '__rmod__', '__rmul__', '__ror__', '__round__', '__rpow__', '__rrshift__', '__rshift__', '__rsub__', '__rtruediv__', '__rxor__', '__setattr__', '__sizeof__', '__str__', '__sub__', '__subclasshook__', '__truediv__', '__trunc__', '__xor__', 'bit_length', 'conjugate', 'denominator', 'from_bytes', 'imag', 'numerator', 'real', 'to_bytes']
+>>> 
+>>> 
+>>> 
+>>> 
+>>> 
+>>> # Data hiding
+>>> 
+>>> 
+>>> 
+>>> class Distance():
+	def __init__(self, mi):
+		self.mi = mi
+		self.km = mi * 1.6
+
+		
+>>> d = Distance(3)
+>>> d.mi
+3
+>>> d.km
+4.800000000000001
+>>> d = Distance(3.1)
+>>> d.mi, d.km
+(3.1, 4.960000000000001)
+>>> d.km = 10
+>>> d.mi, d.km
+(3.1, 10)
+>>> class Distance():
+	def __init__(self, mi):
+		self.mi = mi
+		self.__km = mi * 1.6
+
+		
+>>> d = Distance(3)
+>>> d.mi
+3
+>>> d.km
+Traceback (most recent call last):
+  File "<pyshell#74>", line 1, in <module>
+    d.km
+AttributeError: 'Distance' object has no attribute 'km'
+>>> d.__km
+Traceback (most recent call last):
+  File "<pyshell#75>", line 1, in <module>
+    d.__km
+AttributeError: 'Distance' object has no attribute '__km'
+>>> class Distance():
+	def __init__(self, mi):
+		self.mi = mi
+		self.__km = mi * 1.6
+	def getkm(self):
+		return self.__km
+
+	
+>>> d = Distance(3)
+>>> d.mi
+3
+>>> d.getkm()
+4.800000000000001
+>>> d.__km
+Traceback (most recent call last):
+  File "<pyshell#83>", line 1, in <module>
+    d.__km
+AttributeError: 'Distance' object has no attribute '__km'
+>>> class Distance():
+	def __init__(self, mi):
+		self.mi = mi
+		self.__km = mi * 1.6
+	def getkm(self):
+		return self.__km
+	def setkm(self, v):
+		raise ValueError("do not set km directly")
+
+	
+>>> d = Distance(3)
+>>> d.mi
+3
+>>> d.getkm()
+4.800000000000001
+>>> d.setkm(10)
+Traceback (most recent call last):
+  File "<pyshell#91>", line 1, in <module>
+    d.setkm(10)
+  File "<pyshell#87>", line 8, in setkm
+    raise ValueError("do not set km directly")
+ValueError: do not set km directly
+>>> class Distance():
+	def __init__(self, mi):
+		self.mi = mi
+		self.__km = mi * 1.6
+	def getkm(self):
+		return self.__km
+	def setkm(self, v):
+		raise ValueError("do not set km directly")
+	km = property(getkm, setkm)
+
+	
+>>> d = Distance(3)
+>>> d.mi
+3
+>>> d.km
+4.800000000000001
+>>> d.km = 10
+Traceback (most recent call last):
+  File "<pyshell#98>", line 1, in <module>
+    d.km = 10
+  File "<pyshell#94>", line 8, in setkm
+    raise ValueError("do not set km directly")
+ValueError: do not set km directly
+>>> class Distance():
+	def __init__(self, mi):
+		self.__mi = mi
+		self.__km = mi * 1.6
+	def getmi(self):
+		return self.__mi
+	def setmi(self, v):
+		self.__mi = v
+		self.__km = v * 1.6
+	def getkm(self):
+		return self.__km
+	def setkm(self, v):
+		raise ValueError("do not set km directly")
+	km = property(getkm, setkm)
+	mi = property(getmi, setmi)
+
+	
+>>> d = Distance(3)
+>>> d.mi, d.km
+(3, 4.800000000000001)
+>>> d.km = 10
+Traceback (most recent call last):
+  File "<pyshell#104>", line 1, in <module>
+    d.km = 10
+  File "<pyshell#101>", line 13, in setkm
+    raise ValueError("do not set km directly")
+ValueError: do not set km directly
+>>> d.mi = 5
+>>> d.mi, d.km
+(5, 8.0)
+>>> 
+>>> 
+>>> 
+>>> 
+>>> 
+>>> 
+>>> class DH():
+	def __init__(self):
+		self.__hidden=10
+
+		
+>>> dh=DH()
+>>> dh.__hidden
+Traceback (most recent call last):
+  File "<pyshell#118>", line 1, in <module>
+    dh.__hidden
+AttributeError: 'DH' object has no attribute '__hidden'
+>>> dir(dh)
+['_DH__hidden', '__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__']
+>>> dh._DH__hidden
+10
+>>> #  __hidden to _DH__hidden --->name mangling
+>>> dir(d)
+['_Distance__km', '_Distance__mi', '__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'getkm', 'getmi', 'km', 'mi', 'setkm', 'setmi']
+>>> 
+>>> 
+>>> 
+>>> 
+>>> 
+>>> 
+>>> a = 5 +1
+>>> if a ==6:
+	print("test passed")
+else:
+	print("test failed)
+	      
+SyntaxError: EOL while scanning string literal
+>>> if a ==6:
+	print("test passed")
+else:
+	print("test failed")
+
+	
+test passed
+>>> 
+>>> 
+>>> a = 5+1
+>>> assert a == 6
+>>> assert a == 5
+Traceback (most recent call last):
+  File "<pyshell#140>", line 1, in <module>
+    assert a == 5
+AssertionError
+>>> assert a == 5, "not waht I execpted"
+Traceback (most recent call last):
+  File "<pyshell#141>", line 1, in <module>
+    assert a == 5, "not waht I execpted"
+AssertionError: not waht I execpted
+>>> import unittest
+>>> t = unittest.TestSuite()
+>>> 
+>>> 
+>>> 
+>>> import csv
+>>> fh = open(r'D:\training\python\sep9-us\progs\smoketest.csv')
+>>> for line in csv.DictReader(fh):
+	print(line)
+
+	
+OrderedDict([('Module', 'testbank'), ('testcase', 'TestBank'), ('test', 'test_sa_create'), ('run', 'y')])
+OrderedDict([('Module', 'testbank'), ('testcase', 'TestBank'), ('test', 'test_ca_create'), ('run', 'n')])
+OrderedDict([('Module', 'testbank'), ('testcase', 'TestBank'), ('test', 'test_sa_credit'), ('run', 'y')])
+OrderedDict([('Module', 'testbank'), ('testcase', 'TestBank'), ('test', 'test_ca_credit'), ('run', 'n')])
+>>> for line in csv.DictReader(fh):
+	print("run" , line['test'], "from", line['testcase'])
+
+	
+>>> fh.seek(0)
+0
+>>> 
+>>> for line in csv.DictReader(fh):
+	print("run" , line['test'], "from", line['testcase'])
+
+	
+run test_sa_create from TestBank
+run test_ca_create from TestBank
+run test_sa_credit from TestBank
+run test_ca_credit from TestBank
+>>> for line in csv.DictReader(fh):
+	print("import", line['Module'])
+
+	
+>>> fh.seek(0)
+0
+>>> for line in csv.DictReader(fh):
+	print("import", line['Module'])
+
+	
+import testbank
+import testbank
+import testbank
+import testbank
+>>> a = 10
+>>> 'a = 10'
+'a = 10'
+>>> c = 'a = 10'
+>>> eval(c)
+Traceback (most recent call last):
+  File "<pyshell#166>", line 1, in <module>
+    eval(c)
+  File "<string>", line 1
+    a = 10
+      ^
+SyntaxError: invalid syntax
+>>> exec(c)
+>>> a
+10
+>>> "import {}".format('testbank')
+'import testbank'
+>>> "testbank", "TestBank", "test_sa_create"
+('testbank', 'TestBank', 'test_sa_create')
+>>> 
+>>> "{}.{}('{}')".format("testbank", "TestBank", "test_sa_create")
+"testbank.TestBank('test_sa_create')"
+>>> s = 'hello'
+>>> c = "len(s)"
+>>> exec(c)
+>>> eval(c)
+5
+>>> x = eval(c)
+>>> 
